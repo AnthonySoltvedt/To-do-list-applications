@@ -11,11 +11,13 @@ public class TaskManager {
         taskList.add(task);
         priorityQueue.add(task);
         actionHistory.push("add " + task.getId());
+        System.out.println(Colour.green("Task added successfully!"));
     }
 
     public void removeTask(int id) {
         taskList.removeIf(task -> task.getId() == id);
         actionHistory.push("remove " + id);
+        System.out.println(Colour.cyan("Task removed successfully!"));
     }
 
     public void updateTask(int id, String newDescription, int newPriority, Date newDueDate) {
@@ -25,6 +27,7 @@ public class TaskManager {
                 task.setPriority(newPriority);
                 task.setDueDate(newDueDate);
                 actionHistory.push("update " + id);
+                System.out.println(Colour.blue("Task updated successfully!"));
                 return;
             }
         }
@@ -37,6 +40,7 @@ public class TaskManager {
                 completedTasks.add(task);
                 priorityQueue.remove(task);
                 actionHistory.push("complete " + id);
+                System.out.println(Colour.yellow("Task marked as complete!"));
                 return;
             }
         }
@@ -75,3 +79,5 @@ public class TaskManager {
         }
     }
 }
+
+
