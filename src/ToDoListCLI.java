@@ -6,6 +6,8 @@ public class ToDoListCLI {
         TaskManager taskManager = new TaskManager();
         Scanner scanner = new Scanner(System.in);
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        List<ICommand> commands = new ArrayList<>();
+        commands.add(new AddCommand(taskManager));
 
         // Welcome message
         System.out.println(Colour.magenta("Welcome to the To-Do List CLI!"));
@@ -14,7 +16,10 @@ public class ToDoListCLI {
 
         while (true) {
             System.out.println("\nCommands:");
-            System.out.println("1. add");
+            for(int i = 0; i < commands.size(); i++) {
+                ICommand command = commands.get(i);
+                System.out.println((i + 1) + ". " + command.getCommandName());
+            }
             System.out.println("2. remove");
             System.out.println("3. update");
             System.out.println("4. view [all|priority|completed]");
@@ -26,19 +31,16 @@ public class ToDoListCLI {
             System.out.print("\nEnter command: ");
             String input = scanner.nextLine().trim().toLowerCase();
 
-            if (input.equals("1") || input.equals("add")) {
-                System.out.print("Enter task description: ");
-                String description = scanner.nextLine();
-                System.out.print("Enter priority (1-5): ");
-                int priority = scanner.nextInt();
-                scanner.nextLine(); // Consume newline
-                System.out.print("Enter due date (yyyy-MM-dd): ");
-                String dateInput = scanner.nextLine();
-                try {
-                    taskManager.addTask(description, priority, dateFormat.parse(dateInput));
-                } catch (Exception e) {
-                    System.out.println(Colour.red("Invalid date format."));
+            for(int i = 0; i < commands.size(); i++) {
+                ICommand command = commands.get(i);
+                if (String.valueOf(i+1).equals(input) || input.equals(command.getCommandName())) {
+                    command.execute();
+                    break;
                 }
+            }
+
+            if (input.equals("1") || input.equals("add")) {
+
             } else if (input.equals("2") || input.equals("remove")) {
                 System.out.print("Enter Task ID to remove: ");
                 int taskId = scanner.nextInt();
