@@ -1,4 +1,7 @@
-abstract class BaseCommand implements ICommand {
+import java.text.SimpleDateFormat;
+import java.util.Scanner;
+
+public abstract class BaseCommand implements ICommand {
     protected TaskManager taskManager;
     protected Scanner scanner;
     protected SimpleDateFormat dateFormat;
@@ -10,6 +13,5 @@ abstract class BaseCommand implements ICommand {
     }
 
     public abstract void execute();
-
     public abstract String getCommandName();
 }
