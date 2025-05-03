@@ -19,7 +19,8 @@ public class ToDoListCLI {
         commands.add(new ViewCommand(taskManager));
         commands.add(new SearchCommand(taskManager));
         commands.add(new MarkCompleteCommand(taskManager));
-        commands.add(new UndoCommand(taskManager));  // Assuming you will implement this later
+        commands.add(new UndoCommand(taskManager));
+        commands.add(new SaveCommand(taskManager));
 
         // Welcome message
         System.out.println(Colour.magenta("Welcome to the To-Do List CLI!"));

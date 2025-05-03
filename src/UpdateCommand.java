@@ -37,4 +37,3 @@ public class UpdateCommand extends BaseCommand {
         return "update";
     }
 }
-
