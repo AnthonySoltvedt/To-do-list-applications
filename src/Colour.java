@@ -34,4 +34,3 @@ public class Colour {
         return CYAN + text + RESET;
     }
 }
-

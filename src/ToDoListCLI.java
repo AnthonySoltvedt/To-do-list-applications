@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;  // <-- Add this import
+import java.util.Scanner;
 
 public class ToDoListCLI {
     public static void main(String[] args) {
@@ -33,24 +33,28 @@ public class ToDoListCLI {
                 ICommand command = commands.get(i);
                 System.out.println((i + 1) + ". " + command.getCommandName());
             }
-            System.out.println("8. exit");
+            System.out.println((commands.size() + 1) + ". exit");
 
             System.out.print("\nEnter command: ");
             String input = scanner.nextLine().trim().toLowerCase();
 
+            boolean commandFound = false;
             for (int i = 0; i < commands.size(); i++) {
                 ICommand command = commands.get(i);
-                if (String.valueOf(i + 1).equals(input) || input.equals(command.getCommandName())) {
+                if (input.equals(String.valueOf(i + 1)) || input.equals(command.getCommandName().toLowerCase())) {
                     command.execute();
+                    commandFound = true;
                     break;
                 }
             }
 
-            if (input.equals("8") || input.equals("exit")) {
-                System.out.println(Colour.magenta("Exiting To-Do List..."));
-                break;
-            } else {
-                System.out.println(Colour.red("Invalid command. Try again."));
+            if (!commandFound) {
+                if (input.equals(String.valueOf(commands.size() + 1)) || input.equals("exit")) {
+                    System.out.println(Colour.magenta("Exiting To-Do List..."));
+                    break;
+                } else {
+                    System.out.println(Colour.red("Invalid command. Try again."));
+                }
             }
         }
 
